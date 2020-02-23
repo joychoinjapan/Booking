@@ -12,4 +12,9 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+    .copy('node_modules/open-sans-all/css/open-sans.css', 'public/css')
+    .copy('node_modules/font-awesome/css/font-awesome.css', 'public/css')
+    .copy('resources/images','public/images')
+    .copy('node_modules/open-sans-all/fonts', 'public/fonts')
+    .copy('node_modules/font-awesome/fonts', 'public/fonts')
+    .sass('resources/css/style.scss', 'public/css').version();
