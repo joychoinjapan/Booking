@@ -64,11 +64,15 @@
 		  &times;
 	  </button>
 	  <div class="modal-content">
-		  <img src="{{asset('/images/header.jpg')}}">
+		  <img v-bind:src="images[0]">
 	  </div>
   </div>
 </div>
 {{--<script src="../../node_modules/laravel-mix/src/components/Vue.js"></script>--}}
+<script type="text/javascript">
+    window.booking_listing_model="{!! addslashes(json_encode($model))!!}";
+</script>
 <script src="{{ mix('js/app.js') }}"></script>
+
 </body>
 </html>
