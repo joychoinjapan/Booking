@@ -31562,6 +31562,50 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 var model = JSON.parse(window.booking_listing_model);
 model = Object(_helpers__WEBPACK_IMPORTED_MODULE_1__["populateAmenitiesAndPrices"])(model);
+console.log(model);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('image-carousel', {
+  template: " <div class=\"image-carousel\">\n                 <img v-bind:src=\"image\">\n                 <div class=\"controls\">\n                    <carousel-control dir=\"left\" @change-image=\"changeImage\"></carousel-control>\n                    <carousel-control dir=\"right\" @change-image=\"changeImage\"></carousel-control>\n                 </div>\n                </div>",
+  props: ['images'],
+  data: function data() {
+    return {
+      index: 0
+    };
+  },
+  computed: {
+    image: function image() {
+      return this.images[this.index];
+    }
+  },
+  methods: {
+    changeImage: function changeImage(val) {
+      var newVal = this.index + parseInt(val);
+
+      if (newVal < 0) {
+        this.index = this.images.length - 1;
+      } else if (newVal === this.images.length) {
+        this.index = 0;
+      } else {
+        this.index = newVal;
+      }
+    }
+  },
+  components: {
+    'carousel-control': {
+      template: "<i :class=\"classes\" @click=\"clicked\"></i>",
+      props: ['dir'],
+      computed: {
+        classes: function classes() {
+          return 'carousel-control fa fa-2x fa-chevron-' + this.dir;
+        }
+      },
+      methods: {
+        clicked: function clicked() {
+          this.$emit('change-image', this.dir === 'left' ? -1 : 1);
+        }
+      }
+    }
+  }
+});
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: "#app",
   data: Object.assign(model, {
