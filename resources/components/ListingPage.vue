@@ -39,8 +39,8 @@
     import FeatureList from "../components/FeatureList";
     import ExpandableText from "../components/ExpandableText";
 
-    let model = JSON.parse(window.booking_listing_model);
-    model = populateAmenitiesAndPrices(model);
+    let serverData = JSON.parse(window.booking_listing_model);
+    let model = populateAmenitiesAndPrices(serverData.listing);
 
     export default {
         data(){

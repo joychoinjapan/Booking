@@ -10,16 +10,11 @@
   <link rel="stylesheet" href="{{mix('css/style.css')}}" type="text/css">
 </head>
 <body>
-<div id="toolbar">
-  <img class="icon" src="{{asset('/images/logo.png')}}">
-  <h1>Booking</h1>
-</div>
 <div id="app">
-<ListingPage></ListingPage>
 </div>
 {{--<script src="../../node_modules/laravel-mix/src/components/Vue.js"></script>--}}
 <script type="text/javascript">
-    window.booking_listing_model="{!! addslashes(json_encode($model))!!}";
+    window.booking_listing_model="{!! addslashes(json_encode($data))!!}";
 </script>
 <script src="{{ mix('js/app.js') }}"></script>
 

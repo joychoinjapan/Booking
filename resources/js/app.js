@@ -1,10 +1,10 @@
-require('./bootstrap');
-
 import Vue from 'vue';
-import ListingPage from "../components/ListingPage";
+import App from '../components/App';
+import router from "./router";
 
 
 let app = new Vue({
     el: "#app",
-    render:h=>h(ListingPage)
+    render: h => h(App),
+    router
 });
