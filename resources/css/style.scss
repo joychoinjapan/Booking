@@ -15,8 +15,6 @@ body {
   }
 }
 
-
-
 .heading{
   margin-bottom: 2em;
 }
@@ -95,4 +93,8 @@ button{
     .carousel-control{
         font-size:3rem
     }
+}
+
+html,body{
+    overflow-x:hidden;
 }
