@@ -16,17 +16,29 @@
 <script>
     import {groupByCountry} from "../js/helpers";
     import ListingSummary from "./ListingSummary";
+    import axios from 'axios';
 
-    let serverData = JSON.parse(window.booking_listing_model);
-    console.log(serverData);
-    let listing_groups = groupByCountry(serverData.listings);
-    console.log(listing_groups);
     export default {
         data() {
-            return {listing_groups}
+            return{
+                listing_groups:[]
+            };
         },
         components: {
             ListingSummary
+        },
+        beforeRouteEnter(to, from, next) {
+            let serverData = JSON.parse(window.booking_listing_model);
+            if (to.path === serverData.path) {
+                let listing_groups = groupByCountry(serverData.listings);
+                next(component => component.listing_groups = listing_groups);
+            } else {
+                axios.get('/api/').then(({data})=>{
+                    let listing_groups = groupByCountry(data.listings);
+                    next(component => component.listing_groups = listing_groups);
+                })
+            }
+
         }
     }
 </script>

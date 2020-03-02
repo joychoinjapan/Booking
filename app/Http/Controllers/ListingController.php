@@ -8,17 +8,11 @@ use function foo\func;
 
 class ListingController extends Controller
 {
-    public function get_home_web()
+    private function add_meta_data($collection,$request)
     {
-        $collection = Listing::all(['id', 'address', 'title', 'price_per_night']);
-        $collection->transform(function($listing){
-           $listing->thumb=asset(
-               'images/'.$listing->id.'/Image_1_thumb.jpg'
-           ) ;
-            return $listing;
-        });
-        $data = collect(['listings' => $collection->toArray()]);
-        return view('app', ['data' => $data]);
+        return $collection->merge([
+            'path'=>$request->getPathInfo()
+        ]);
     }
 
 
@@ -43,5 +37,29 @@ class ListingController extends Controller
     {
         $data = $this->get_listing($listing);
         return view('app', ['data' => $data]);
+    }
+
+    private function get_listing_summaries(){
+        $collection = Listing::all(['id', 'address', 'title', 'price_per_night']);
+        $collection->transform(function($listing){
+            $listing->thumb=asset(
+                'images/'.$listing->id.'/Image_1_thumb.jpg'
+            ) ;
+            return $listing;
+        });
+
+        return collect(['listings' => $collection->toArray()]);
+    }
+
+    public function get_home_web(Request $request)
+    {
+        $data = $this->get_listing_summaries();
+        $data = $this->add_meta_data($data,$request);
+        return view('app', ['data' => $data]);
+    }
+
+    public function get_home_api(){
+        $data = $this->get_listing_summaries();
+        return response()->json($data);
     }
 }
