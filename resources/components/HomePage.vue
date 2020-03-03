@@ -16,9 +16,10 @@
 <script>
     import {groupByCountry} from "../js/helpers";
     import ListingSummary from "./ListingSummary";
-    import axios from 'axios';
+    import routeMixin from '../js/route-mixin';
 
     export default {
+        mixins:[routeMixin],
         data() {
             return{
                 listing_groups:[]
@@ -27,34 +28,16 @@
         components: {
             ListingSummary
         },
-        beforeRouteEnter(to, from, next) {
-            let serverData = JSON.parse(window.booking_listing_model);
-            if (to.path === serverData.path) {
-                let listing_groups = groupByCountry(serverData.listings);
-                next(component => component.listing_groups = listing_groups);
-            } else {
-                axios.get('/api/').then(({data})=>{
-                    let listing_groups = groupByCountry(data.listings);
-                    next(component => component.listing_groups = listing_groups);
-                })
+        methods:{
+            assignData({listings}){
+                this.listing_groups=groupByCountry(listings);
             }
-
         }
+
     }
 </script>
 
 <style scoped>
-    .home-container {
-        margin: 0 auto;
-        padding: 0 25px;
-    }
-
-    @media (min-width: 1131px) {
-        .home-container {
-            width: 1080px;
-        }
-    }
-
     .listing-summary-group {
         padding-bottom: 20px;
     }

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <header-image :image-url="images[0]" @header-clicked="openModal"></header-image>
+        <header-image v-if="images[0]" :image-url="images[0]" @header-clicked="openModal"></header-image>
         <div class="container">
             <div class="heading">
                 <h1>{{title}}</h1>
@@ -38,13 +38,21 @@
     import HeaderImage from "../components/HeaderImage";
     import FeatureList from "../components/FeatureList";
     import ExpandableText from "../components/ExpandableText";
+    import routeMixin from "../js/route-mixin";
 
-    let serverData = JSON.parse(window.booking_listing_model);
-    let model = populateAmenitiesAndPrices(serverData.listing);
 
     export default {
+       mixins:[routeMixin],
         data(){
-            return Object.assign(model, {});
+            return {
+                id: null,
+                title: null,
+                address: null,
+                about:null,
+                amenities:[],
+                prices: [],
+                images: []
+            }
         },
        components:{
            ImageCarousel,
@@ -53,7 +61,14 @@
            FeatureList,
            ExpandableText
        },
+        computed:{
+            model:function(){
+            }
+        },
         methods:{
+            assignData({listing}){
+                Object.assign(this.$data,populateAmenitiesAndPrices(listing));
+            },
             openModal(){
                 this.$refs.imageModal.modalOpen=true;
             }

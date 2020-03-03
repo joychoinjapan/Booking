@@ -1,16 +1,23 @@
 <template>
     <div>
-    <div id="toolbar">
-        <router-link :to="{name:'home'}">
-        <img class="icon" src="/images/logo.png">
-        <h1>Booking</h1>
-        </router-link>
-    </div>
+        <div id="toolbar">
+            <router-link :to="{name:'home'}">
+                <img class="icon" src="/images/logo.png">
+                <h1>Booking</h1>
+            </router-link>
+        </div>
         <router-view></router-view>
+        <custom-footer></custom-footer>
     </div>
 </template>
 
 <script>
+    import CustomFooter from "./CustomFooter";
+    export default {
+        components:{
+            CustomFooter
+        }
+    }
 </script>
 
 <style scoped>
@@ -34,9 +41,9 @@
         margin: 0;
     }
 
-    #toolbar a{
+    #toolbar a {
         display: flex;
         align-items: center;
-        text-decoration:none;
+        text-decoration: none;
     }
 </style>
