@@ -1,7 +1,7 @@
 <template>
     <div id="footer">
         <div class="hr"></div>
-        <div class="container">
+        <div :class="containerClass">
             <p>
                 <img src="/images/logo_grey.png" alt="" class="icon">
                 <span>
@@ -14,7 +14,11 @@
 
 <script>
     export default {
-        name: "CustomFooter"
+       computed:{
+           containerClass(){
+               return `${this.$route.name}-container`;
+           }
+       }
     }
 </script>
 
